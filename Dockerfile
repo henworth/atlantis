@@ -14,7 +14,8 @@ RUN curl -L -s --output "${TERRAGRUNT_ATLANTIS_FILENAME}.tar.gz" "https://github
     mv "${TERRAGRUNT_ATLANTIS_FILENAME}/${TERRAGRUNT_ATLANTIS_FILENAME}" /usr/local/bin/terragrunt-atlantis-config && \
     chmod +x /usr/local/bin/terragrunt-atlantis-config && \
     git clone https://github.com/tfutils/tfenv.git /home/atlantis/.tfenv && \
-    git clone https://github.com/cunymatthieu/tgenv.git /home/atlantis/.tgenv && \
+    git clone https://github.com/taosmountain/tgenv.git /tmp/tgenv && \
+    cd /tmp/tgenv && git pull --rebase origin pull/1/head && cd /tmp && mv /tmp/tgenv /home/atlantis/.tgenv && \
     echo "export PATH=/home/atlantis/.tgenv/bin:/home/atlantis/.tfenv/bin:${PATH}" >> /home/atlantis/.bashrc && \
     rm -rf "${TERRAGRUNT_ATLANTIS_FILENAME}.tar.gz" "${TERRAGRUNT_ATLANTIS_FILENAME}" && \
     /home/atlantis/.tfenv/bin/tfenv install $TERRAFORM_VERSION && \
