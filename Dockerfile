@@ -6,6 +6,8 @@ ENV TERRAGRUNT_VERSION=0.35.13
 ENV TERRAGRUNT_ATLANTIS_VERSION=1.12.1
 ENV TERRAGRUNT_ATLANTIS_FILENAME="terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_VERSION}_linux_amd64"
 
+ENV PATH "/home/atlantis/.tgenv/bin:/home/atlantis/.tfenv/bin:${PATH}"
+
 WORKDIR /tmp
 
 RUN apk add --update --no-cache nodejs npm libc6-compat
@@ -15,7 +17,7 @@ RUN curl -L -s --output "${TERRAGRUNT_ATLANTIS_FILENAME}.tar.gz" "https://github
     mv "${TERRAGRUNT_ATLANTIS_FILENAME}/${TERRAGRUNT_ATLANTIS_FILENAME}" /usr/local/bin/terragrunt-atlantis-config && \
     chmod +x /usr/local/bin/terragrunt-atlantis-config
 
-RUN npm install shelljs path && \
+RUN npm install --prefix /home/atlantis shelljs path && \
     curl -L -s --output /home/atlantis/terragrunt_light.js https://gist.githubusercontent.com/dmattia/0d17696bad1dffd90ec7c899e0343955/raw/9ab0cb7fef04327442436679496e11990b6fc2d8/terragrunt_light.js && \
     chown atlantis:atlantis /home/atlantis/terragrunt_light.js
 
