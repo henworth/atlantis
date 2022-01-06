@@ -10,7 +10,7 @@ ENV PATH "/home/atlantis/.tgenv/bin:/home/atlantis/.tfenv/bin:${PATH}"
 
 WORKDIR /tmp
 
-RUN apk add --update --no-cache nodejs npm libc6-compat
+RUN apk add --update --no-cache nodejs npm libc6-compat aws-cli
 
 RUN curl -L -s --output "${TERRAGRUNT_ATLANTIS_FILENAME}.tar.gz" "https://github.com/transcend-io/terragrunt-atlantis-config/releases/download/v${TERRAGRUNT_ATLANTIS_VERSION}/${TERRAGRUNT_ATLANTIS_FILENAME}.tar.gz" && \
     tar xf "${TERRAGRUNT_ATLANTIS_FILENAME}.tar.gz" && \
